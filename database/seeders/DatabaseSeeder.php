@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
             'description' => 'Administrator of risk situations in the institution'
         ]);
 
-        Role::create([
+        $brigadier_role = Role::create([
             'name' => 'Brigadier',
             'description' => 'Brigadier of the institution'
         ]);
 
-        Role::create([
+        $final_user_role = Role::create([
             'name' => 'Final User',
             'description' => 'Final user that are part of the institution'
         ]);
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'name' => 'Admin',
             'last_name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@autonoma.edu.co',
             'password' => bcrypt('admin1234'),
             'id_card' => '123456789',
             'rhgb' => 'O+',
@@ -77,7 +77,35 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '3568415980',
             'is_active' => true,
         ]);
-
         $user->institutions()->attach($institution->id, ['code' => 'UAM', 'role_id' => $admin_role->id]);
+
+        $brigadier_user = User::create([
+            'name' => 'Brigadier',
+            'last_name' => 'Brigadier',
+            'email' => 'brigadier@autonoma.edu.co',
+            'password' => bcrypt('brigadier1234'),
+            'id_card' => '987654321',
+            'rhgb' => 'O-',
+            'social_security' => 'SURA',
+            'phone_number' => '3000000000',
+            'is_active' => true,
+        ]);
+
+        $brigadier_user->institutions()->attach($institution->id, ['code' => 'UAM', 'role_id' => $brigadier_role-> id]);
+
+
+        $final_user = User::create([
+            'name' => 'User',
+            'last_name' => 'User',
+            'email' => 'user@autonoma.edu.co',
+            'password' => bcrypt('user1234'),
+            'id_card' => '123123123',
+            'rhgb' => 'A+',
+            'social_security' => 'USER',
+            'phone_number' => '3000000001',
+            'is_active' => true,
+        ]);
+
+        $final_user->institutions()->attach($institution->id, ['code' => 'UAM', 'role_id' => $final_user_role -> id]);
     }
 }
